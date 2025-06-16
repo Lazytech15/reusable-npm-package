@@ -49,8 +49,10 @@
   "type": "module",
   "main": "index.js",
   "module": "index.js",
+  "types": "index.d.ts",
   "exports": {
     ".": {
+      "types": "./index.d.ts",
       "import": "./index.js",
       "require": "./index.js"
     },
@@ -58,6 +60,7 @@
   },
   "files": [
     "index.js",
+    "index.d.ts",
     "components/",
     "style.css",
     "README.md"
