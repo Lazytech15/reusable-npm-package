@@ -1,0 +1,80 @@
+{
+  "name": "responsive-reusable-package",
+  "version": "1.0.1",
+  "description": "A comprehensive collection of highly customizable, responsive React components for modern web applications. Features flexible layouts, dark mode support, and accessibility.",
+  "keywords": [
+    "react",
+    "components",
+    "responsive",
+    "ui",
+    "layout",
+    "grid",
+    "container",
+    "modal",
+    "dark-mode",
+    "toggle",
+    "accessibility",
+    "mobile-first",
+    "typescript",
+    "css-grid",
+    "flexbox",
+    "reusable",
+    "customizable",
+    "lightweight",
+    "modern",
+    "web-components",
+    "frontend",
+    "ui-library",
+    "design-system",
+    "responsive-design",
+    "breakpoints",
+    "mobile",
+    "tablet",
+    "desktop",
+    "cross-platform",
+    "react-components",
+    "component-library",
+    "RNP"
+  ],
+  "homepage": "https://github.com/Lazytech15/reusable-npm-package#readme",
+  "bugs": {
+    "url": "https://github.com/Lazytech15/reusable-npm-package/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lazytech15/reusable-npm-package.git"
+  },
+  "license": "ISC",
+  "author": "necroHunger_15",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.js"
+    },
+    "./styles": "./style.css"
+  },
+  "files": [
+    "index.js",
+    "components/",
+    "style.css",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build process needed for this package\"",
+    "prepublishOnly": "echo \"Ready to publish\""
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "dependencies": {
+    "lucide-react": "^0.515.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.10"
+  }
+}
