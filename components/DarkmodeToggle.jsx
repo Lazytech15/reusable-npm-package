@@ -37,7 +37,7 @@ export const DarkModeToggle = ({
   darkIcon = '🌙',
   lightLabel = 'Light',
   darkLabel = 'Dark',
-  animate = true,
+  animate = false,
   alignment = 'center',
   onToggleStart,
   onToggleComplete,
@@ -89,28 +89,28 @@ export const DarkModeToggle = ({
         {...dataProps}
       >
         {showLabels && (
-          <span className="dark-mode-switch-label dark-mode-switch-label--sun">
+          <span className={`dark-mode-switch-label dark-mode-switch-label--sun ${animateClass}`}>
             {lightIcon}
           </span>
         )}
         <button
-          className={`dark-mode-switch ${isDarkMode ? 'dark-mode-switch--active' : ''}`}
+          className={`dark-mode-switch ${isDarkMode ? 'dark-mode-switch--active' : ''} ${animateClass}`}
           onClick={handleToggle}
           disabled={disabled}
           aria-label={ariaLabel || defaultAriaLabel}
           aria-pressed={isDarkMode}
           role="switch"
         >
-          <div className="dark-mode-switch-slider">
-            <div className="dark-mode-switch-thumb">
-              <span className="dark-mode-switch-icon">
+          <div className={`dark-mode-switch-slider ${animateClass}`}>
+            <div className={`dark-mode-switch-thumb ${animateClass}`}>
+              <span className={`dark-mode-switch-icon ${animateClass}`}>
                 {isDarkMode ? darkIcon : lightIcon}
               </span>
             </div>
           </div>
         </button>
         {showLabels && (
-          <span className="dark-mode-switch-label dark-mode-switch-label--moon">
+          <span className={`dark-mode-switch-label dark-mode-switch-label--moon ${animateClass}`}>
             {darkIcon}
           </span>
         )}
@@ -130,11 +130,11 @@ export const DarkModeToggle = ({
         id={id}
         {...dataProps}
       >
-        <div className="dark-mode-icon-container">
-          <span className={`dark-mode-icon dark-mode-icon--sun ${!isDarkMode ? 'active' : ''}`}>
+        <div className={`dark-mode-icon-container ${animateClass}`}>
+          <span className={`dark-mode-icon dark-mode-icon--sun ${!isDarkMode ? 'active' : ''} ${animateClass}`}>
             {lightIcon}
           </span>
-          <span className={`dark-mode-icon dark-mode-icon--moon ${isDarkMode ? 'active' : ''}`}>
+          <span className={`dark-mode-icon dark-mode-icon--moon ${isDarkMode ? 'active' : ''} ${animateClass}`}>
             {darkIcon}
           </span>
         </div>
@@ -154,31 +154,22 @@ export const DarkModeToggle = ({
       id={id}
       {...dataProps}
     >
-      <div className="dark-mode-toggle-content">
-        <span className="dark-mode-toggle-icon">
+      <div className={`dark-mode-toggle-content ${animateClass}`}>
+        <span className={`dark-mode-toggle-icon ${animateClass}`}>
           {isDarkMode ? lightIcon : darkIcon}
         </span>
-        <span className="dark-mode-toggle-text">
+        <span className={`dark-mode-toggle-text ${animateClass}`}>
           {isDarkMode ? lightLabel : darkLabel} Mode
         </span>
       </div>
-      <div className="dark-mode-toggle-bg"></div>
+      <div className={`dark-mode-toggle-bg ${animateClass}`}></div>
     </button>
   );
 };
 
-/**
- * useDarkMode - Custom hook for managing dark mode state
- * Note: Uses in-memory storage instead of localStorage for Claude.ai compatibility
- * 
- * BACKWARD COMPATIBLE VERSION - Returns array for destructuring: [isDarkMode, toggleDarkMode]
- * 
- * @param {boolean} defaultValue - Default dark mode state
- * @returns {[boolean, function]} - [isDarkMode, toggleDarkMode]
- */
 export const useDarkMode = (defaultValue = false) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check if running in browser
+    // // Check if running in browser
     if (typeof window !== 'undefined') {
       // Fall back to system preference
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -326,9 +317,3 @@ export const useDarkModeAdvanced = ({
   };
 };
 
-// const { isDarkMode, toggleDarkMode, setDarkMode, systemPreference } = useDarkModeAdvanced({
-//   defaultValue: false,
-//   respectSystemPreference: true,
-//   onChange: (isDark) => console.log('Theme changed:', isDark),
-//   customClasses: { dark: 'my-dark-theme', light: 'my-light-theme' }
-// });
