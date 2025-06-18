@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../style.css'
 
 /**
- * ResponsiveContainer - A flexible container component that adapts to different screen sizes
+ * ResponsiveContainer - A fully customizable container component that adapts to different screen sizes
  * Uses custom CSS classes instead of Tailwind CSS
  * 
  * @param {Object} props - Component props
@@ -13,10 +13,10 @@ import '../style.css'
  * @param {'start'|'center'|'end'} props.align - Horizontal alignment
  * @param {boolean} props.padding - Whether to add responsive padding
  * @param {boolean} props.margin - Whether to add responsive margin
- * @param {'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.paddingX - Custom horizontal padding
- * @param {'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.paddingY - Custom vertical padding
- * @param {'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.marginX - Custom horizontal margin
- * @param {'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.marginY - Custom vertical margin
+ * @param {'0'|'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.paddingX - Custom horizontal padding
+ * @param {'0'|'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.paddingY - Custom vertical padding
+ * @param {'0'|'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.marginX - Custom horizontal margin
+ * @param {'0'|'1'|'2'|'4'|'6'|'8'|'12'|'16'} props.marginY - Custom vertical margin
  * @param {'stack'|'grid'|'flex'} props.layout - Layout type for children
  * @param {'1'|'2'|'4'|'6'|'8'} props.gap - Gap between child elements (only applies to flex and grid layouts)
  * @param {'left'|'center'|'right'|'justify'} props.textAlign - Text alignment for child elements
@@ -33,6 +33,31 @@ import '../style.css'
  * @param {'sm'|'md'|'lg'|'xl'|'full'} props.modalSize - Modal size variant
  * @param {'center'|'top'|'bottom'} props.modalPosition - Modal position on screen
  * @param {boolean} props.modalBlurBackdrop - Whether to blur the backdrop
+ * @param {'none'|'sm'|'md'|'lg'|'xl'|'full'} props.radius - Border radius variant
+ * 
+ * // NEW STYLING PROPS
+ * @param {'none'|'xs'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'} props.shadow - Box shadow variant
+ * @param {'white'|'gray-50'|'gray-100'|'gray-200'|'gray-300'|'gray-400'|'gray-500'|'gray-600'|'gray-700'|'gray-800'|'gray-900'|'black'|'primary'|'secondary'|'accent'|'success'|'warning'|'error'|'info'|'transparent'} props.background - Background color variant
+ * @param {'1'|'2'|'3'|'4'|'5'|'6'|'8'} props.border - Border width
+ * @param {'gray-200'|'gray-300'|'gray-400'|'gray-500'|'gray-600'|'primary'|'secondary'|'accent'|'success'|'warning'|'error'|'info'} props.borderColor - Border color variant
+ * @param {'solid'|'dashed'|'dotted'|'double'} props.borderStyle - Border style
+ * @param {'auto'|'50'|'75'|'100'|'125'|'150'|'200'|'300'|'400'|'500'|'600'|'700'|'800'|'full'|'screen'} props.height - Height variant
+ * @param {'auto'|'50'|'75'|'100'|'125'|'150'|'200'|'300'|'400'|'500'|'600'|'700'|'800'|'full'|'screen'} props.minHeight - Minimum height variant
+ * @param {'auto'|'50'|'75'|'100'|'125'|'150'|'200'|'300'|'400'|'500'|'600'|'700'|'800'|'full'|'screen'} props.maxHeight - Maximum height variant
+ * @param {'visible'|'hidden'|'scroll'|'auto'} props.overflow - Overflow behavior
+ * @param {'visible'|'hidden'|'scroll'|'auto'} props.overflowX - Horizontal overflow behavior
+ * @param {'visible'|'hidden'|'scroll'|'auto'} props.overflowY - Vertical overflow behavior
+ * @param {'static'|'relative'|'absolute'|'fixed'|'sticky'} props.position - CSS position property
+ * @param {'0'|'1'|'2'|'3'|'4'|'5'|'10'|'20'|'30'|'40'|'50'|'auto'} props.zIndex - Z-index value
+ * @param {string} props.top - Top position (CSS value like '10px', '1rem', '50%')
+ * @param {string} props.right - Right position (CSS value)
+ * @param {string} props.bottom - Bottom position (CSS value)
+ * @param {string} props.left - Left position (CSS value)
+ * @param {'0'|'25'|'50'|'75'|'90'|'95'|'100'} props.opacity - Opacity level
+ * @param {'none'|'hover'|'focus'|'active'} props.transition - Transition effects
+ * @param {'1'|'1.05'|'1.1'|'1.2'} props.hoverScale - Scale on hover
+ * @param {'xs'|'sm'|'md'|'lg'|'xl'|'2xl'|'3xl'} props.hoverShadow - Shadow on hover
+ * @param {string} props.hoverBackground - Background color on hover
  */
 const ResponsiveContainer = ({
   children,
@@ -48,13 +73,15 @@ const ResponsiveContainer = ({
   marginY,
   layout = 'stack',
   gap = '4',
-  // New alignment props
+  radius = 'none',
+  // Alignment props
   textAlign,
   alignItems,
   justifyContent,
   flexDirection = 'column',
   flexWrap = 'nowrap',
   darkBackground = false,
+  // Modal props
   modal = false,
   modalOpen = false,
   onModalClose,
@@ -63,6 +90,29 @@ const ResponsiveContainer = ({
   modalSize = 'md',
   modalPosition = 'center',
   modalBlurBackdrop = false,
+  // NEW STYLING PROPS
+  shadow,
+  background,
+  border,
+  borderColor,
+  borderStyle = 'solid',
+  height,
+  minHeight,
+  maxHeight,
+  overflow,
+  overflowX,
+  overflowY,
+  position,
+  zIndex,
+  top,
+  right,
+  bottom,
+  left,
+  opacity,
+  transition,
+  hoverScale,
+  hoverShadow,
+  hoverBackground,
   ...props
 }) => {
   // Handle escape key press for modal
@@ -102,31 +152,72 @@ const ResponsiveContainer = ({
     !modal && `responsive-container--${maxWidth}`, // Max width (not for modal)
     !modal && width && `responsive-container--width-${width}`, // Custom width (not for modal)
     !modal && `responsive-container--align-${align}`, // Alignment (not for modal)
-    // Use custom padding/margin if provided, otherwise use default responsive padding/margin
+    
+    // Spacing
     paddingX && `responsive-container--padding-x-${paddingX}`,
     paddingY && `responsive-container--padding-y-${paddingY}`,
     marginX && `responsive-container--margin-x-${marginX}`,
     marginY && `responsive-container--margin-y-${marginY}`,
-    // Only apply default padding/margin if custom ones aren't specified
     (!paddingX && !paddingY && padding) && 'responsive-container--padding',
-    (!marginX && !marginY && margin && !modal) && 'responsive-container--margin', // No default margin for modal
-    `responsive-container--${layout}`, // Layout type
-    // Gap class (only for flex and grid layouts)
+    (!marginX && !marginY && margin && !modal) && 'responsive-container--margin',
+    
+    // Layout
+    `responsive-container--${layout}`,
     (layout === 'flex' || layout === 'grid') && `responsive-container--gap-${gap}`,
-    // Text alignment
     textAlign && `responsive-container--text-${textAlign}`,
-    // Flex alignment properties (only for flex layout)
     layout === 'flex' && alignItems && `responsive-container--align-items-${alignItems}`,
     layout === 'flex' && justifyContent && `responsive-container--justify-${justifyContent}`,
     layout === 'flex' && flexDirection && `responsive-container--flex-${flexDirection}`,
     layout === 'flex' && flexWrap && `responsive-container--flex-wrap-${flexWrap}`,
-    darkBackground && 'responsive-container--dark-bg', // Dark background variant
+    
+    // Appearance
+    radius && `responsive-container--radius-${radius}`,
+    shadow && `responsive-container--shadow-${shadow}`,
+    background && `responsive-container--bg-${background}`,
+    darkBackground && 'responsive-container--dark-bg',
+    
+    // Border
+    border && `responsive-container--border-${border}`,
+    borderColor && `responsive-container--border-${borderColor}`,
+    borderStyle !== 'solid' && `responsive-container--border-${borderStyle}`,
+    
+    // Dimensions
+    height && `responsive-container--height-${height}`,
+    minHeight && `responsive-container--min-height-${minHeight}`,
+    maxHeight && `responsive-container--max-height-${maxHeight}`,
+    
+    // Overflow
+    overflow && `responsive-container--overflow-${overflow}`,
+    overflowX && `responsive-container--overflow-x-${overflowX}`,
+    overflowY && `responsive-container--overflow-y-${overflowY}`,
+    
+    // Position
+    position && `responsive-container--position-${position}`,
+    zIndex && `responsive-container--z-${zIndex}`,
+    
+    // Opacity
+    opacity && `responsive-container--opacity-${opacity}`,
+    
+    // Transitions and Hover Effects
+    transition && `responsive-container--transition-${transition}`,
+    hoverScale && `responsive-container--hover-scale-${hoverScale}`,
+    hoverShadow && `responsive-container--hover-shadow-${hoverShadow}`,
+    hoverBackground && `responsive-container--hover-bg-${hoverBackground}`,
+    
     // Modal specific classes
     modal && 'responsive-container--modal',
     modal && `responsive-container--modal-${modalSize}`,
     modal && `responsive-container--modal-${modalPosition}`,
+    
     className // Additional custom classes
   ].filter(Boolean).join(' ');
+
+  // Create inline styles for position values
+  const inlineStyles = {};
+  if (top !== undefined) inlineStyles.top = top;
+  if (right !== undefined) inlineStyles.right = right;
+  if (bottom !== undefined) inlineStyles.bottom = bottom;
+  if (left !== undefined) inlineStyles.left = left;
 
   // Combine backdrop classes
   const backdropClasses = [
@@ -140,7 +231,11 @@ const ResponsiveContainer = ({
     
     return (
       <div className={backdropClasses} onClick={handleBackdropClick}>
-        <div className={containerClasses} {...props}>
+        <div 
+          className={containerClasses} 
+          style={inlineStyles}
+          {...props}
+        >
           {children}
         </div>
       </div>
@@ -149,7 +244,11 @@ const ResponsiveContainer = ({
 
   // Regular container
   return (
-    <div className={containerClasses} {...props}>
+    <div 
+      className={containerClasses} 
+      style={inlineStyles}
+      {...props}
+    >
       {children}
     </div>
   );
